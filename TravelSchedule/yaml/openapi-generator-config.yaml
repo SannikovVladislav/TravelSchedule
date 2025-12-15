@@ -1,0 +1,8 @@
+# openapi-generator-config.yaml
+# swift-openapi-generator configuration
+#  Travel Schedule
+#  Created by Ульта on 30.09.2025.
+
+generate:
+  - types
+  - client
