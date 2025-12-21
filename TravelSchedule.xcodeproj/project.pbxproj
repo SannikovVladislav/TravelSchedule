@@ -15,9 +15,22 @@
 		86F821962EF09B8200AEE782 /* TravelSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8673B5C82EF811CB00114908 /* Exceptions for "TravelSchedule" folder in "TravelSchedule" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+			);
+			target = 86F821952EF09B8200AEE782 /* TravelSchedule */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		86F821982EF09B8200AEE782 /* TravelSchedule */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8673B5C82EF811CB00114908 /* Exceptions for "TravelSchedule" folder in "TravelSchedule" target */,
+			);
 			path = TravelSchedule;
 			sourceTree = "<group>";
 		};
@@ -66,7 +79,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				86F821C42EF0A3B600AEE782 /* PBXTargetDependency */,
+				863A3E8F2EF8156700621F4D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				86F821982EF09B8200AEE782 /* TravelSchedule */,
@@ -140,9 +153,9 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		86F821C42EF0A3B600AEE782 /* PBXTargetDependency */ = {
+		863A3E8F2EF8156700621F4D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 86F821C32EF0A3B600AEE782 /* OpenAPIGenerator */;
+			productRef = 863A3E8E2EF8156700621F4D /* OpenAPIGenerator */;
 		};
 /* End PBXTargetDependency section */
 
@@ -283,6 +296,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,6 +329,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -383,6 +398,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		863A3E8E2EF8156700621F4D /* OpenAPIGenerator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 86F821B82EF0A27800AEE782 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */;
+			productName = "plugin:OpenAPIGenerator";
+		};
 		86F821BE2EF0A32300AEE782 /* OpenAPIRuntime */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 86F821BD2EF0A32300AEE782 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */;
@@ -392,11 +412,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 86F821C02EF0A33B00AEE782 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */;
 			productName = OpenAPIURLSession;
-		};
-		86F821C32EF0A3B600AEE782 /* OpenAPIGenerator */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 86F821B82EF0A27800AEE782 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */;
-			productName = "plugin:OpenAPIGenerator";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
