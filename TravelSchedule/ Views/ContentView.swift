@@ -24,7 +24,7 @@ struct ContentView: View {
                         serverURL: try Servers.Server1.url(),
                         transport: URLSessionTransport()
                     )
-                    let apikey = "807f69ba-ef96-4c8f-86ad-706710327dee"
+                    let apikey = Constants.apiKey
                     
                     // 1. Copyright Service (Копирайт Яндекс Расписаний)
                     do {
