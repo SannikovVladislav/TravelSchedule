@@ -19,14 +19,14 @@ struct CarrierInfoView: View {
                 ZStack {
                     Text("Информация о перевозчике")
                         .font(.system(size: 17, weight: .bold))
-                        .foregroundColor(Color(.black))
+                        .foregroundColor(Color("BlackDay"))
                         .multilineTextAlignment(.center)
                     
                     HStack {
                         Button(action: onBack) {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 20, weight: .semibold))
-                                .foregroundColor(Color(.black))
+                                .foregroundColor(Color("BlackDay"))
                         }
                         .padding(.leading, 16)
                         

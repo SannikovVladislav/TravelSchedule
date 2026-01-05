@@ -15,23 +15,9 @@
 		86F821962EF09B8200AEE782 /* TravelSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8673B5C82EF811CB00114908 /* Exceptions for "TravelSchedule" folder in "TravelSchedule" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Assets.xcassets,
-				LaunchScreen.storyboard,
-			);
-			target = 86F821952EF09B8200AEE782 /* TravelSchedule */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		86F821982EF09B8200AEE782 /* TravelSchedule */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				8673B5C82EF811CB00114908 /* Exceptions for "TravelSchedule" folder in "TravelSchedule" target */,
-			);
 			path = TravelSchedule;
 			sourceTree = "<group>";
 		};
@@ -305,6 +291,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.SannikovVladislav.TravelSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -338,6 +325,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.SannikovVladislav.TravelSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
