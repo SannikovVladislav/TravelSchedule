@@ -39,7 +39,7 @@ struct CarriersScreenView: View {
                 }
                 .padding(.vertical, 12)
                 .padding(.top, 8)
-
+                
                 HStack(alignment: .center, spacing: 8) {
                     Text("\(fromCity) (\(fromStation))")
                         .font(.system(size: 24, weight: .bold))
@@ -106,7 +106,7 @@ struct CarriersScreenView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color("WhiteDayYP"))
-
+                    
                     VStack {
                         Button(action: { showFilter = true }) {
                             Text("Уточнить время")
@@ -137,7 +137,7 @@ struct CarriersScreenView: View {
                         .padding(.bottom, 100)
                     }
                     .background(Color("WhiteDayYP"))
-
+                    
                     VStack {
                         Button(action: {
                             showFilter = true
@@ -194,7 +194,7 @@ struct CarriersScreenView: View {
     private func loadTrips() async {
         do {
             let directoryService = DirectoryService(apikey: Constants.apiKey)
-
+            
             let fromStations = try await directoryService.fetchStations(inCityTitle: fromCity)
             let toStations = try await directoryService.fetchStations(inCityTitle: toCity)
             
@@ -214,10 +214,11 @@ struct CarriersScreenView: View {
                 toStation: toStation
             )
         } catch {
+            
             await MainActor.run {
                 if error.localizedDescription.contains("network") ||
-                   error.localizedDescription.contains("internet") ||
-                   error.localizedDescription.contains("offline") {
+                    error.localizedDescription.contains("internet") ||
+                    error.localizedDescription.contains("offline") {
                     onNoInternet?()
                 } else {
                     viewModel.errorMessage = "Ошибка сервера"

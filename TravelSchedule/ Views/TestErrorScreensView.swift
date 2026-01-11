@@ -33,7 +33,10 @@ struct TestErrorScreensView: View {
         .fullScreenCover(isPresented: $showNoInternet) {
             NoInternetView(onTabSelected: { _ in })
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color("LightGrayYP"))
     }
+    
 }
 
 #Preview {

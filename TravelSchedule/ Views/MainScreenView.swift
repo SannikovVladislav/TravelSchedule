@@ -26,89 +26,89 @@ struct MainScreenView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 12) {
-                            ForEach(0..<4) { index in
-                                StoryCardView(isActive: index < 2)
-                            }
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
+                        ForEach(0..<4) { index in
+                            StoryCardView(isActive: index < 2)
                         }
-                        .padding(.horizontal, 16)
-                    }
-                    .padding(.top, 12)
-
-                    ZStack(alignment: .trailing) {
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color("BlueYP"))
-                            .frame(height: 135)
-
-                        HStack(spacing: 0) {
-                            VStack(spacing: 32) {
-                                HStack {
-                                    Text(displayText(city: sessionManager.fromCity, station: sessionManager.fromStation, placeholder: "Откуда"))
-                                        .font(.system(size: 17))
-                    .foregroundColor(sessionManager.fromCity == nil ? Color("GrayYP") : Color("BlackYP"))
-                                    Spacer()
-                                }
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    pickerTarget = .from
-                                    showCityPicker = true
-                                }
-                                HStack {
-                                    Text(displayText(city: sessionManager.toCity, station: sessionManager.toStation, placeholder: "Куда"))
-                                        .font(.system(size: 17))
-                    .foregroundColor(sessionManager.toCity == nil ? Color("GrayYP") : Color("BlackYP"))
-                                    Spacer()
-                                }
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    pickerTarget = .to
-                                    showCityPicker = true
-                                }
-                            }
-                            .padding(.leading, 16)
-                            .padding(.vertical, 16)
-                            .frame(height: 103)
-                            .background(Color("WhiteYP"))
-                            .cornerRadius(20)
-                          
-                            Spacer()
-                                .frame(width: 60)
-                        }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 16)
-
-                        Button(action: {
-                            swap(&sessionManager.fromCity, &sessionManager.toCity)
-                            swap(&sessionManager.fromStation, &sessionManager.toStation)
-                        }) {
-                            ZStack {
-                                Circle()
-                                    .fill(Color("WhiteYP"))
-                                    .frame(width: 44, height: 44)
-                                Image("Change")
-                                    .renderingMode(.original)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
-                            }
-                        }
-                        .padding(.trailing, 16)
                     }
                     .padding(.horizontal, 16)
-                    .padding(.top, 48)
-
-                    if (sessionManager.fromCity?.isEmpty == false) && (sessionManager.toCity?.isEmpty == false) {
-                        SearchPrimaryButton(title: "Найти") {
-                            showCarriers = true
+                }
+                .padding(.top, 12)
+                
+                ZStack(alignment: .trailing) {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color("BlueYP"))
+                        .frame(height: 135)
+                    
+                    HStack(spacing: 0) {
+                        VStack(spacing: 32) {
+                            HStack {
+                                Text(displayText(city: sessionManager.fromCity, station: sessionManager.fromStation, placeholder: "Откуда"))
+                                    .font(.system(size: 17))
+                                    .foregroundColor(sessionManager.fromCity == nil ? Color("GrayYP") : Color("BlackYP"))
+                                Spacer()
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                pickerTarget = .from
+                                showCityPicker = true
+                            }
+                            HStack {
+                                Text(displayText(city: sessionManager.toCity, station: sessionManager.toStation, placeholder: "Куда"))
+                                    .font(.system(size: 17))
+                                    .foregroundColor(sessionManager.toCity == nil ? Color("GrayYP") : Color("BlackYP"))
+                                Spacer()
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                pickerTarget = .to
+                                showCityPicker = true
+                            }
                         }
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        .animation(.easeOut(duration: 0.2), value: sessionManager.fromCity)
-                        .animation(.easeOut(duration: 0.2), value: sessionManager.toCity)
-                        .padding(.top, 12)
+                        .padding(.leading, 16)
+                        .padding(.vertical, 16)
+                        .frame(height: 103)
+                        .background(Color("WhiteYP"))
+                        .cornerRadius(20)
+                        
+                        Spacer()
+                            .frame(width: 60)
                     }
-
-                    Spacer()
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 16)
+                    
+                    Button(action: {
+                        swap(&sessionManager.fromCity, &sessionManager.toCity)
+                        swap(&sessionManager.fromStation, &sessionManager.toStation)
+                    }) {
+                        ZStack {
+                            Circle()
+                                .fill(Color("WhiteYP"))
+                                .frame(width: 44, height: 44)
+                            Image("Change")
+                                .renderingMode(.original)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
+                        }
+                    }
+                    .padding(.trailing, 16)
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 48)
+                
+                if (sessionManager.fromCity?.isEmpty == false) && (sessionManager.toCity?.isEmpty == false) {
+                    SearchPrimaryButton(title: "Найти") {
+                        showCarriers = true
+                    }
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .animation(.easeOut(duration: 0.2), value: sessionManager.fromCity)
+                    .animation(.easeOut(duration: 0.2), value: sessionManager.toCity)
+                    .padding(.top, 12)
+                }
+                
+                Spacer()
             }
         }
         .navigationDestination(isPresented: $showCityPicker) {
@@ -135,12 +135,12 @@ struct MainScreenView: View {
         .task {
             guard didPrefetchDirectory == false else { return }
             didPrefetchDirectory = true
-            let directory = DirectoryService(apikey: "50889f83-e54c-4e2e-b9b9-7d5fe468a025")
+            let directory = DirectoryService(apikey: Constants.apiKey)
             do { _ = try await directory.fetchAllCities() }
             catch {
                 if error.localizedDescription.contains("network") ||
-                   error.localizedDescription.contains("internet") ||
-                   error.localizedDescription.contains("offline") {
+                    error.localizedDescription.contains("internet") ||
+                    error.localizedDescription.contains("offline") {
                     onNoInternet()
                 } else { onServerError() }
             }
@@ -176,7 +176,7 @@ struct StoryCardView: View {
                 .frame(width: 92, height: 105)
                 .cornerRadius(16, corners: [.topLeft, .topRight])
             
-            Text("Text Text Text Text Text Text Text Text Text")
+            Text("Здесь будет текст")
                 .font(.system(size: 12))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
@@ -189,9 +189,9 @@ struct StoryCardView: View {
         .cornerRadius(16)
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(
+                .strokeBorder(
                     isActive ? Color("BlueYP") : Color.clear,
-                    lineWidth: 2
+                    lineWidth: 3
                 )
         )
         .opacity(isActive ? 1.0 : 0.5)
@@ -208,7 +208,7 @@ extension View {
 struct RoundedCorner: Shape {
     var radius: CGFloat = .infinity
     var corners: UIRectCorner = .allCorners
-
+    
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(
             roundedRect: rect,
@@ -231,8 +231,6 @@ private enum PickerTarget { case from, to }
 }
 
 
-// MARK: - Сити пикер
-
 struct City: Identifiable, Equatable, Hashable {
     let id = UUID()
     let name: String
@@ -251,21 +249,21 @@ final class CityPickerViewModel: ObservableObject {
         City(name: "Омск")
     ]
     private var onServerError: (() -> Void)?
-
+    
     func setErrorCallback(onServerError: @escaping () -> Void) {
         self.onServerError = onServerError
     }
-
+    
     func loadCities() async {
         do {
-            let directory = DirectoryService(apikey: "50889f83-e54c-4e2e-b9b9-7d5fe468a025")
+            let directory = DirectoryService(apikey: Constants.apiKey)
             let cities = try await directory.fetchAllCities()
             let mapped = cities.map { City(name: $0.title) }
             await MainActor.run { self.allCities = mapped.isEmpty ? self.defaultCities : mapped }
         } catch {
             if error.localizedDescription.contains("network") ||
-               error.localizedDescription.contains("internet") ||
-               error.localizedDescription.contains("offline") {
+                error.localizedDescription.contains("internet") ||
+                error.localizedDescription.contains("offline") {
                 await MainActor.run { self.allCities = self.defaultCities }
             } else {
                 onServerError?()
@@ -276,7 +274,7 @@ final class CityPickerViewModel: ObservableObject {
     func simulateServerError() {
         onServerError?()
     }
-
+    
     var filtered: [City] {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard trimmed.isEmpty == false else { return defaultCities }
@@ -303,13 +301,13 @@ struct CityPickerView: View {
     @State private var selectedCity: City? = nil
     @State private var showServerError = false
     @StateObject private var stationsViewModel = StationsPickerViewModel()
-
+    
     var body: some View {
         VStack(spacing: 0) {
             Color("WhiteYP")
                 .frame(height: 12)
                 .ignoresSafeArea(edges: .top)
-
+            
             ZStack {
                 Text("Выбор города")
                     .font(.system(size: 17, weight: .bold))
@@ -327,7 +325,7 @@ struct CityPickerView: View {
             }
             .padding(.vertical, 12)
             .padding(.top, 8)
-
+            
             HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(Color("GrayYP"))
@@ -349,7 +347,7 @@ struct CityPickerView: View {
             .cornerRadius(10)
             .padding(.horizontal, 16)
             .padding(.bottom, 8)
-
+            
             if viewModel.filtered.isEmpty && viewModel.query.isEmpty == false {
                 VStack {
                     Text("Город не найден")
@@ -357,15 +355,6 @@ struct CityPickerView: View {
                         .foregroundColor(Color("BlackYP"))
                         .multilineTextAlignment(.center)
                         .padding(.top, 180)
-                    
-                    /* Button("Тест: Ошибка сервера") {
-                        viewModel.simulateServerError()
-                    }
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(Color("BlueUniversal"))
-                    .padding(.top, 20)
-                    
-                    Spacer() */
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             } else {
@@ -386,7 +375,7 @@ struct CityPickerView: View {
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 16)
                             }
-            .background(Color("WhiteDayYP"))
+                            .background(Color("WhiteDayYP"))
                         }
                     }
                 }
@@ -423,14 +412,13 @@ struct CityPickerView: View {
 }
 
 private extension UIResponder {
-    static func currentFirstResponderBecomesFirst(text: CityPickerViewModel) { /* no-op; native focus оставим пользователю */ }
+    static func currentFirstResponderBecomesFirst(text: CityPickerViewModel) {}
 }
 
-// MARK: - Основная кнопка под синим блоком
 struct SearchPrimaryButton: View {
     let title: String
     let action: () -> Void
-
+    
     var body: some View {
         Button(action: action) {
             HStack(spacing: 10) {
@@ -447,8 +435,6 @@ struct SearchPrimaryButton: View {
     }
 }
 
-// MARK: - Выбор станции
-
 struct Station: Identifiable, Equatable {
     let id = UUID()
     let code: String?
@@ -461,26 +447,21 @@ final class StationsPickerViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     private var onServerError: (() -> Void)?
     private var currentCityTitle: String? = nil
-
+    
     func setErrorCallback(onServerError: @escaping () -> Void) {
         self.onServerError = onServerError
     }
-
+    
     func load(forCityTitle cityTitle: String) async {
-        
-        
+                
         if currentCityTitle == cityTitle && !allStations.isEmpty {
-            
             return
         }
-        
         if isLoading {
             
             return
         }
-        
         if currentCityTitle == cityTitle {
-            
             return
         }
         
@@ -498,25 +479,25 @@ final class StationsPickerViewModel: ObservableObject {
         }
         do {
             
-            let directory = DirectoryService(apikey: "50889f83-e54c-4e2e-b9b9-7d5fe468a025")
+            let directory = DirectoryService(apikey: Constants.apiKey)
             let stations = try await directory.fetchStations(inCityTitle: cityTitle)
             let mapped = stations.map { Station(code: $0.yandexCode, title: $0.title) }
             
-        await MainActor.run {
-            self.allStations = mapped
-            
-        }
+            await MainActor.run {
+                self.allStations = mapped
+                
+            }
         } catch {
             if error.localizedDescription.contains("network") ||
-               error.localizedDescription.contains("internet") ||
-               error.localizedDescription.contains("offline") {
+                error.localizedDescription.contains("internet") ||
+                error.localizedDescription.contains("offline") {
                 await MainActor.run { self.allStations = [] }
             } else {
                 onServerError?()
             }
         }
     }
-
+    
     var filtered: [Station] {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -548,7 +529,7 @@ struct StationsPickerView: View {
         self.onTabSelected = onTabSelected
         
     }
-
+    
     var body: some View {
         VStack(spacing: 0) {
             Color("WhiteDayYP").frame(height: 12).ignoresSafeArea(edges: .top)
@@ -568,7 +549,7 @@ struct StationsPickerView: View {
             }
             .padding(.vertical, 12)
             .padding(.top, 8)
-
+            
             HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(Color("GrayYP"))
@@ -590,7 +571,7 @@ struct StationsPickerView: View {
             .cornerRadius(10)
             .padding(.horizontal, 16)
             .padding(.bottom, 8)
-
+            
             if viewModel.isLoading {
                 VStack {
                     ProgressView()
@@ -640,7 +621,6 @@ struct StationsPickerView: View {
     }
 }
 
-// MARK: - хелперы
 private func displayText(city: String?, station: String?, placeholder: String) -> String {
     guard let city, !city.isEmpty else { return placeholder }
     if let station, !station.isEmpty { return "\(city) (\(station))" }

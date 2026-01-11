@@ -29,7 +29,9 @@ struct MainTabView: View {
                         }
                     )
                 }
+                
             } else {
+                
                 NavigationStack {
                     SettingsScreenView()
                 }

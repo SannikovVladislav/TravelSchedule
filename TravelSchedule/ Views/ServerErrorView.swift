@@ -12,7 +12,7 @@ struct ServerErrorView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-         
+            
             VStack(spacing: 20) {
                 Spacer()
                 
@@ -23,13 +23,13 @@ struct ServerErrorView: View {
                 
                 Text("Ошибка сервера")
                     .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(Color("BlackYP"))
+                    .foregroundColor(Color("BlackDayYP"))
                     .multilineTextAlignment(.center)
                 
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color("WhiteYP"))
+            .background(Color("WhiteDayYP"))
             
             VStack(spacing: 0) {
                 Divider()
@@ -45,7 +45,7 @@ struct ServerErrorView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(Color("BlackYP"))
+                                .foregroundColor(Color("BlackDayYP"))
                         }
                     }
                     .frame(maxWidth: .infinity)
@@ -65,10 +65,10 @@ struct ServerErrorView: View {
                     .frame(maxWidth: .infinity)
                 }
                 .padding(.vertical, 8)
-                .background(Color("WhiteYP"))
+                .background(Color("WhiteDayYP"))
             }
         }
-        .background(Color("WhiteYP"))
+        .background(Color("WhiteDayYP"))
     }
 }
 

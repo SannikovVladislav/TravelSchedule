@@ -4,6 +4,7 @@
 //
 //  Created by Владислав on 11.01.2026.
 //
+
 import SwiftUI
 
 struct NoInternetView: View {
@@ -21,13 +22,13 @@ struct NoInternetView: View {
                 
                 Text("Нет интернета")
                     .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(Color("BlackYP"))
+                    .foregroundColor(Color("BlackDayYP"))
                     .multilineTextAlignment(.center)
                 
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color("WhiteYP"))
+            .background(Color("WhiteDayYP"))
             
             VStack(spacing: 0) {
                 Divider()
@@ -43,7 +44,7 @@ struct NoInternetView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(Color("BlackYP"))
+                                .foregroundColor(Color("BlackDayYP"))
                         }
                     }
                     .frame(maxWidth: .infinity)
@@ -63,10 +64,10 @@ struct NoInternetView: View {
                     .frame(maxWidth: .infinity)
                 }
                 .padding(.vertical, 8)
-                .background(Color("WhiteYP"))
+                .background(Color("WhiteDayYP"))
             }
         }
-        .background(Color("WhiteYP"))
+        .background(Color("WhiteDayYP"))
     }
 }
 
