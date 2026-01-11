@@ -304,20 +304,20 @@ struct CityPickerView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Color("WhiteYP")
+            Color("WhiteDayYP")
                 .frame(height: 12)
                 .ignoresSafeArea(edges: .top)
             
             ZStack {
                 Text("Выбор города")
                     .font(.system(size: 17, weight: .bold))
-                    .foregroundColor(Color("BlackYP"))
+                    .foregroundColor(Color("BlackDayYP"))
                     .multilineTextAlignment(.center)
                 HStack {
                     Button(action: { onCancel() }) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(Color("BlackYP"))
+                            .foregroundColor(Color("BlackDayYP"))
                     }
                     .padding(.leading, 16)
                     Spacer()
@@ -332,7 +332,7 @@ struct CityPickerView: View {
                 TextField("Введите запрос", text: $viewModel.query)
                     .textInputAutocapitalization(.words)
                     .disableAutocorrection(true)
-                    .foregroundColor(Color("BlackYP"))
+                    .foregroundColor(Color("BlackDayYP"))
                     .focused($searchFocused)
                 if searchFocused {
                     Button(action: { viewModel.query = "" }) {
@@ -343,7 +343,7 @@ struct CityPickerView: View {
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
-            .background(Color("SearchCity"))
+            .background(Color("SearchCityYP"))
             .cornerRadius(10)
             .padding(.horizontal, 16)
             .padding(.bottom, 8)
@@ -352,7 +352,7 @@ struct CityPickerView: View {
                 VStack {
                     Text("Город не найден")
                         .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(Color("BlackYP"))
+                        .foregroundColor(Color("BlackDayYP"))
                         .multilineTextAlignment(.center)
                         .padding(.top, 180)
                 }
@@ -366,11 +366,11 @@ struct CityPickerView: View {
                             }) {
                                 HStack {
                                     Text(city.name)
-                                        .foregroundColor(Color("BlackYP"))
+                                        .foregroundColor(Color("BlackDayYP"))
                                     Spacer()
                                     Image(systemName: "chevron.right")
                                         .font(.system(size: 20, weight: .semibold))
-                                        .foregroundColor(Color("BlackYP"))
+                                        .foregroundColor(Color("BlackDayYP"))
                                 }
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 16)
@@ -567,7 +567,7 @@ struct StationsPickerView: View {
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
-            .background(Color("SearchCity"))
+            .background(Color("SearchCityYP"))
             .cornerRadius(10)
             .padding(.horizontal, 16)
             .padding(.bottom, 8)

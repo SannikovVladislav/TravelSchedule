@@ -7,25 +7,25 @@
 
 import SwiftUI
 
-struct TestErrorScreensView: View {
+struct TestScreenView: View {
     @State private var showServerError = false
     @State private var showNoInternet = false
     
     var body: some View {
         VStack(spacing: 20) {
-            Text("Тест экранов ошибок")
+            Text("Тест ошибок")
                 .font(.title)
                 .padding()
             
-            Button("Показать ошибку сервера") {
+            Button("Ошибка сервера") {
                 showServerError = true
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.bordered)
             
-            Button("Показать отсутствие интернета") {
+            Button("Отсутствие интернета") {
                 showNoInternet = true
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.bordered)
         }
         .fullScreenCover(isPresented: $showServerError) {
             ServerErrorView(onTabSelected: { _ in })
@@ -40,5 +40,5 @@ struct TestErrorScreensView: View {
 }
 
 #Preview {
-    TestErrorScreensView()
+    TestScreenView()
 }
