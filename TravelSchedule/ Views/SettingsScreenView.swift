@@ -15,13 +15,13 @@ struct SettingsScreenView: View {
             
             Text("Настройки")
                 .font(.system(size: 24, weight: .bold))
-                .foregroundColor(Color("BlackDay"))
+                .foregroundColor(Color("BlackDayYP"))
             
             Spacer()
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color("WhiteDay"))
+        .background(Color("WhiteDayYP"))
     }
 }
 

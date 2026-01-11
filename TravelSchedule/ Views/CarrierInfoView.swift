@@ -13,20 +13,20 @@ struct CarrierInfoView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                Color("WhiteDay").frame(height: 12)
+                Color("WhiteDayYP").frame(height: 12)
                     .ignoresSafeArea(edges: .top)
                 
                 ZStack {
                     Text("Информация о перевозчике")
                         .font(.system(size: 17, weight: .bold))
-                        .foregroundColor(Color("BlackDay"))
+                        .foregroundColor(Color("BlackDayYP"))
                         .multilineTextAlignment(.center)
                     
                     HStack {
                         Button(action: onBack) {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 20, weight: .semibold))
-                                .foregroundColor(Color("BlackDay"))
+                                .foregroundColor(Color("BlackDayYP"))
                         }
                         .padding(.leading, 16)
                         
@@ -37,11 +37,11 @@ struct CarrierInfoView: View {
                 .padding(.top, 8)
                 .padding(.bottom, 16)
             }
-            .background(Color("WhiteDay"))
+            .background(Color("WhiteDayYP"))
             
             Spacer()
         }
-        .background(Color("WhiteDay"))
+        .background(Color("WhiteDayYP"))
         .navigationBarHidden(true)
         .toolbar(.hidden, for: .tabBar)
     }
