@@ -34,7 +34,7 @@ struct TestScreenView: View {
             NoInternetView(onTabSelected: { _ in })
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color("LightGrayYP"))
+        .background(Color(.lightGrayYP))
     }
     
 }

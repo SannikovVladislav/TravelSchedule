@@ -25,13 +25,13 @@ struct CarriersScreenView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                Color("WhiteDayYP").frame(height: 12).ignoresSafeArea(edges: .top)
+                Color(.whiteDayYP).frame(height: 12).ignoresSafeArea(edges: .top)
                 
                 HStack {
                     Button(action: onBack) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(Color("BlackDayYP"))
+                            .foregroundColor(Color(.blackDayYP))
                     }
                     .padding(.leading, 16)
                     
@@ -43,43 +43,43 @@ struct CarriersScreenView: View {
                 HStack(alignment: .center, spacing: 8) {
                     Text("\(fromCity) (\(fromStation))")
                         .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(Color("BlackDayYP"))
+                        .foregroundColor(Color(.blackDayYP))
                     Image(systemName: "arrow.right")
                         .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(Color("GrayYP"))
+                        .foregroundColor(Color(.grayYP))
                     Text("\(toCity) (\(toStation))")
                         .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(Color("BlackDayYP"))
+                        .foregroundColor(Color(.blackDayYP))
                 }
                 .padding(.bottom, 16)
             }
-            .background(Color("WhiteDayYP"))
+            .background(Color(.whiteDayYP))
             
             if viewModel.isLoading {
                 VStack(spacing: 16) {
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("BlueYP")))
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color(.blueYP)))
                         .scaleEffect(1.5)
                     
                     Text("Загрузка рейсов...")
                         .font(.system(size: 17))
-                        .foregroundColor(Color("GrayYP"))
+                        .foregroundColor(Color(.grayYP))
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color("WhiteDayYP"))
+                .background(Color(.whiteDayYP))
             } else if let errorMessage = viewModel.errorMessage {
                 VStack(spacing: 16) {
                     Image(systemName: "exclamationmark.triangle")
                         .font(.system(size: 48))
-                        .foregroundColor(Color("RedYP"))
+                        .foregroundColor(Color(.redYP))
                     
                     Text("Ошибка")
                         .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(Color("BlackDayYP"))
+                        .foregroundColor(Color(.blackDayYP))
                     
                     Text(errorMessage)
                         .font(.system(size: 16))
-                        .foregroundColor(Color("GrayYP"))
+                        .foregroundColor(Color(.grayYP))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 32)
                     
@@ -89,32 +89,32 @@ struct CarriersScreenView: View {
                         }
                     }
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(Color("BlueYP"))
+                    .foregroundColor(Color(.blueYP))
                     .padding(.top, 8)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color("WhiteDayYP"))
+                .background(Color(.whiteDayYP))
             } else if viewModel.trips.isEmpty {
                 ZStack(alignment: .bottom) {
                     VStack {
                         Spacer()
                         Text("Вариантов нет")
                             .font(.system(size: 24, weight: .bold))
-                            .foregroundColor(Color("BlackDayYP"))
+                            .foregroundColor(Color(.blackDayYP))
                             .multilineTextAlignment(.center)
                         Spacer()
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color("WhiteDayYP"))
+                    .background(Color(.whiteDayYP))
                     
                     VStack {
                         Button(action: { showFilter = true }) {
                             Text("Уточнить время")
                                 .font(.system(size: 17, weight: .bold))
-                                .foregroundColor(Color("WhiteYP"))
+                                .foregroundColor(Color(.whiteYP))
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 20)
-                                .background(Color("BlueYP"))
+                                .background(Color(.blueYP))
                                 .cornerRadius(16)
                         }
                         .padding(.horizontal, 16)
@@ -136,7 +136,7 @@ struct CarriersScreenView: View {
                         .padding(.top, 16)
                         .padding(.bottom, 100)
                     }
-                    .background(Color("WhiteDayYP"))
+                    .background(Color(.whiteDayYP))
                     
                     VStack {
                         Button(action: {
@@ -144,17 +144,17 @@ struct CarriersScreenView: View {
                         }) {
                             Text("Уточнить время")
                                 .font(.system(size: 17, weight: .bold))
-                                .foregroundColor(Color("WhiteYP"))
+                                .foregroundColor(Color(.whiteYP))
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 20)
-                                .background(Color("BlueYP"))
+                                .background(Color(.blueYP))
                                 .cornerRadius(16)
                         }
                         .padding(.horizontal, 16)
                         .padding(.bottom, 16)
                     }
                 }
-                .background(Color("WhiteDayYP"))
+                .background(Color(.whiteDayYP))
             }
         }
         .navigationDestination(isPresented: $showFilter) {
@@ -188,7 +188,7 @@ struct CarriersScreenView: View {
         .fullScreenCover(isPresented: $showServerError) {
             ServerErrorView(onTabSelected: { _ in })
         }
-        .background(Color("WhiteDayYP"))
+        .background(Color(.whiteDayYP))
     }
     
     private func loadTrips() async {

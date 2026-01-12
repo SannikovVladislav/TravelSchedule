@@ -39,19 +39,19 @@ struct MainTabView: View {
             
             VStack(spacing: 0) {
                 Divider()
-                    .background(Color("GrayYP"))
+                    .background(Color(.grayYP))
                 
                 HStack {
                     Button(action: {
                         selectedTab = 0
                     }) {
                         VStack(spacing: 4) {
-                            Image("Schedule")
+                            Image(.schedule)
                                 .renderingMode(Image.TemplateRenderingMode.template)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(selectedTab == 0 ? Color("BlackDayYP") : Color("GrayYP"))
+                                .foregroundColor(selectedTab == 0 ? Color(.blackDayYP) : Color(.grayYP))
                         }
                     }
                     .frame(maxWidth: .infinity)
@@ -65,16 +65,16 @@ struct MainTabView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(selectedTab == 1 ? Color("BlackDayYP") : Color("GrayYP"))
+                                .foregroundColor(selectedTab == 1 ? Color(.blackDayYP) : Color(.grayYP))
                         }
                     }
                     .frame(maxWidth: .infinity)
                 }
                 .padding(.vertical, 8)
-                .background(Color("WhiteDayYP"))
+                .background(Color(.whiteDayYP))
             }
         }
-        .background(Color("WhiteDayYP"))
+        .background(Color(.whiteDayYP))
         .overlay(alignment: .center) {
             if showServerError {
                 ServerErrorView(onTabSelected: { tabIndex in
@@ -97,9 +97,8 @@ struct MainTabView: View {
                 .zIndex(1000)
             }
         }
-        .onChange(of: networkMonitor.isConnected) { isConnected in
-            if !isConnected {
-                
+        .onChange(of: networkMonitor.isConnected) { oldValue, newValue in
+            if !newValue {
                 hideNoInternetDebounce?.cancel()
                 showNoInternetDebounce?.cancel()
                 let work = DispatchWorkItem {

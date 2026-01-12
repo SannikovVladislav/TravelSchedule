@@ -15,13 +15,13 @@ struct FilterScreenView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                Color("WhiteDayYP").frame(height: 12).ignoresSafeArea(edges: .top)
+                Color(.whiteDayYP).frame(height: 12).ignoresSafeArea(edges: .top)
                 
                 HStack {
                     Button(action: onBack) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(Color("BlackDayYP"))
+                            .foregroundColor(Color(.blackDayYP))
                     }
                     .padding(.leading, 16)
                     
@@ -31,14 +31,14 @@ struct FilterScreenView: View {
                 .padding(.top, 8)
                 
             }
-            .background(Color("WhiteDayYP"))
+            .background(Color(.whiteDayYP))
             
             ScrollView {
                 VStack(spacing: 24) {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Время отправления")
                             .font(.system(size: 24, weight: .bold))
-                            .foregroundColor(Color("BlackDayYP"))
+                            .foregroundColor(Color(.blackDayYP))
                         
                         VStack(spacing: 12) {
                             ForEach(TimeSlot.allCases, id: \.self) { timeSlot in
@@ -60,7 +60,7 @@ struct FilterScreenView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Показывать варианты с пересадками")
                             .font(.system(size: 24, weight: .bold))
-                            .foregroundColor(Color("BlackDayYP"))
+                            .foregroundColor(Color(.blackDayYP))
                         
                         VStack(spacing: 12) {
                             ForEach(TransferOption.allCases, id: \.self) { option in
@@ -87,10 +87,10 @@ struct FilterScreenView: View {
                     }) {
                         Text("Применить")
                             .font(.system(size: 17, weight: .bold))
-                            .foregroundColor(Color("WhiteYP"))
+                            .foregroundColor(Color(.whiteYP))
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 20)
-                            .background(Color("BlueYP"))
+                            .background(Color(.blueYP))
                             .cornerRadius(16)
                     }
                     .padding(.horizontal, 16)
@@ -98,7 +98,7 @@ struct FilterScreenView: View {
                 }
             }
         }
-        .background(Color("WhiteDayYP"))
+        .background(Color(.whiteDayYP))
         .navigationBarHidden(true)
         .toolbar(.hidden, for: .tabBar)
     }
@@ -114,7 +114,7 @@ struct TimeSlotRow: View {
             HStack {
                 Text(timeSlot.rawValue)
                     .font(.system(size: 17))
-                    .foregroundColor(Color("BlackDayYP"))
+                    .foregroundColor(Color(.blackDayYP))
                 
                 Spacer()
                 
@@ -122,14 +122,14 @@ struct TimeSlotRow: View {
                     if isSelected {
                         Image(systemName: "checkmark")
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(Color("WhiteDayYP"))
+                            .foregroundColor(Color(.whiteDayYP))
                     }
                 }
                 .frame(width: 24, height: 24)
-                .background(isSelected ? Color("BlackDayYP") : Color.clear)
+                .background(isSelected ? Color(.blackDayYP) : Color.clear)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(Color("BlackDayYP"), lineWidth: 1)
+                        .stroke(Color(.blackDayYP), lineWidth: 1)
                 )
             }
             .padding(.vertical, 12)
@@ -147,18 +147,18 @@ struct TransferOptionRow: View {
             HStack {
                 Text(option.rawValue)
                     .font(.system(size: 17))
-                    .foregroundColor(Color("BlackDayYP"))
+                    .foregroundColor(Color(.blackDayYP))
                 
                 Spacer()
                 
                 ZStack {
                     Circle()
-                        .stroke(Color("BlackDayYP"), lineWidth: 1)
+                        .stroke(Color(.blackDayYP), lineWidth: 1)
                         .frame(width: 20, height: 20)
                     
                     if isSelected {
                         Circle()
-                            .fill(Color("BlackDayYP"))
+                            .fill(Color(.blackDayYP))
                             .frame(width: 8, height: 8)
                     }
                 }

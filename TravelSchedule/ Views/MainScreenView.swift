@@ -16,13 +16,13 @@ struct MainScreenView: View {
     let onTabSelected: ((Int) -> Void)?
     
     @State private var showCityPicker = false
-    @State private var pickerTarget: PickerTarget? = nil
+    @State private var pickerTarget: PickerTarget?
     @State private var showCarriers = false
     @State private var didPrefetchDirectory = false
     
     var body: some View {
         ZStack {
-            Color("WhiteDayYP")
+            Color(.whiteDayYP)
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
@@ -38,7 +38,7 @@ struct MainScreenView: View {
                 
                 ZStack(alignment: .trailing) {
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(Color("BlueYP"))
+                        .fill(Color(.blueYP))
                         .frame(height: 135)
                     
                     HStack(spacing: 0) {
@@ -46,7 +46,7 @@ struct MainScreenView: View {
                             HStack {
                                 Text(displayText(city: sessionManager.fromCity, station: sessionManager.fromStation, placeholder: "Откуда"))
                                     .font(.system(size: 17))
-                                    .foregroundColor(sessionManager.fromCity == nil ? Color("GrayYP") : Color("BlackYP"))
+                                    .foregroundColor(sessionManager.fromCity == nil ? Color(.grayYP) : Color(.blackYP))
                                 Spacer()
                             }
                             .contentShape(Rectangle())
@@ -57,7 +57,7 @@ struct MainScreenView: View {
                             HStack {
                                 Text(displayText(city: sessionManager.toCity, station: sessionManager.toStation, placeholder: "Куда"))
                                     .font(.system(size: 17))
-                                    .foregroundColor(sessionManager.toCity == nil ? Color("GrayYP") : Color("BlackYP"))
+                                    .foregroundColor(sessionManager.toCity == nil ? Color(.grayYP) : Color(.blackYP))
                                 Spacer()
                             }
                             .contentShape(Rectangle())
@@ -69,14 +69,13 @@ struct MainScreenView: View {
                         .padding(.leading, 16)
                         .padding(.vertical, 16)
                         .frame(height: 103)
-                        .background(Color("WhiteYP"))
+                        .background(Color(.whiteYP))
                         .cornerRadius(20)
                         
                         Spacer()
                             .frame(width: 60)
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 16)
+                    .padding(16)
                     
                     Button(action: {
                         swap(&sessionManager.fromCity, &sessionManager.toCity)
@@ -84,7 +83,7 @@ struct MainScreenView: View {
                     }) {
                         ZStack {
                             Circle()
-                                .fill(Color("WhiteYP"))
+                                .fill(Color(.whiteYP))
                                 .frame(width: 44, height: 44)
                             Image("Change")
                                 .renderingMode(.original)
@@ -111,29 +110,31 @@ struct MainScreenView: View {
                 Spacer()
             }
         }
-        .navigationDestination(isPresented: $showCityPicker) {
-            CityPickerView(
-                viewModel: CityPickerViewModel(),
-                onSelect: { selection in
-                    if pickerTarget == .from {
-                        sessionManager.fromCity = selection.city
-                        sessionManager.fromStation = selection.station
-                    } else {
-                        sessionManager.toCity = selection.city
-                        sessionManager.toStation = selection.station
-                    }
-                    showCityPicker = false
-                },
-                onCancel: {
-                    showCityPicker = false
-                },
-                onTabSelected: onTabSelected
-            )
-            .toolbar(.hidden, for: .tabBar)
-            .navigationBarHidden(true)
+        .fullScreenCover(isPresented: $showCityPicker) {
+            NavigationStack {
+                CityPickerView(
+                    viewModel: CityPickerViewModel(),
+                    onSelect: { selection in
+                        if pickerTarget == .from {
+                            sessionManager.fromCity = selection.city
+                            sessionManager.fromStation = selection.station
+                        } else {
+                            sessionManager.toCity = selection.city
+                            sessionManager.toStation = selection.station
+                        }
+                        showCityPicker = false
+                    },
+                    onCancel: {
+                        showCityPicker = false
+                    },
+                    onTabSelected: onTabSelected
+                )
+                .toolbar(.hidden, for: .tabBar)
+                .navigationBarHidden(true)
+            }
         }
         .task {
-            guard didPrefetchDirectory == false else { return }
+            guard !didPrefetchDirectory else { return }
             didPrefetchDirectory = true
             let directory = DirectoryService(apikey: Constants.apiKey)
             do { _ = try await directory.fetchAllCities() }
@@ -145,22 +146,26 @@ struct MainScreenView: View {
                 } else { onServerError() }
             }
         }
-        .navigationDestination(isPresented: $showCarriers) {
-            if let fromCity = sessionManager.fromCity,
-               let fromStation = sessionManager.fromStation,
-               let toCity = sessionManager.toCity,
-               let toStation = sessionManager.toStation {
-                CarriersScreenView(
-                    fromCity: fromCity,
-                    fromStation: fromStation,
-                    toCity: toCity,
-                    toStation: toStation,
-                    onBack: {
-                        showCarriers = false
-                    },
-                    onServerError: onServerError,
-                    onNoInternet: onNoInternet
-                )
+        .fullScreenCover(isPresented: $showCarriers) {
+            NavigationStack {
+                if let fromCity = sessionManager.fromCity,
+                   let fromStation = sessionManager.fromStation,
+                   let toCity = sessionManager.toCity,
+                   let toStation = sessionManager.toStation {
+                    CarriersScreenView(
+                        fromCity: fromCity,
+                        fromStation: fromStation,
+                        toCity: toCity,
+                        toStation: toStation,
+                        onBack: {
+                            showCarriers = false
+                        },
+                        onServerError: onServerError,
+                        onNoInternet: onNoInternet
+                    )
+                    .toolbar(.hidden, for: .tabBar)
+                    .navigationBarHidden(true)
+                }
             }
         }
     }
@@ -172,7 +177,7 @@ struct StoryCardView: View {
     var body: some View {
         VStack(spacing: 0) {
             Rectangle()
-                .fill(Color("GrayYP").opacity(0.3))
+                .fill(Color(.grayYP).opacity(0.3))
                 .frame(width: 92, height: 105)
                 .cornerRadius(16, corners: [.topLeft, .topRight])
             
@@ -185,12 +190,12 @@ struct StoryCardView: View {
                 .padding(.vertical, 8)
         }
         .frame(width: 92, height: 140)
-        .background(Color("GrayYP").opacity(0.5))
+        .background(Color(.grayYP).opacity(0.5))
         .cornerRadius(16)
         .overlay(
             RoundedRectangle(cornerRadius: 16)
                 .strokeBorder(
-                    isActive ? Color("BlueYP") : Color.clear,
+                    isActive ? Color(.blueYP) : Color.clear,
                     lineWidth: 3
                 )
         )
@@ -304,20 +309,20 @@ struct CityPickerView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Color("WhiteDayYP")
+            Color(.whiteDayYP)
                 .frame(height: 12)
                 .ignoresSafeArea(edges: .top)
             
             ZStack {
                 Text("Выбор города")
                     .font(.system(size: 17, weight: .bold))
-                    .foregroundColor(Color("BlackDayYP"))
+                    .foregroundColor(Color(.blackDayYP))
                     .multilineTextAlignment(.center)
                 HStack {
                     Button(action: { onCancel() }) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(Color("BlackDayYP"))
+                            .foregroundColor(Color(.blackDayYP))
                     }
                     .padding(.leading, 16)
                     Spacer()
@@ -328,22 +333,22 @@ struct CityPickerView: View {
             
             HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(Color("GrayYP"))
+                    .foregroundColor(Color(.grayYP))
                 TextField("Введите запрос", text: $viewModel.query)
                     .textInputAutocapitalization(.words)
                     .disableAutocorrection(true)
-                    .foregroundColor(Color("BlackDayYP"))
+                    .foregroundColor(Color(.blackDayYP))
                     .focused($searchFocused)
                 if searchFocused {
                     Button(action: { viewModel.query = "" }) {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(Color("GrayYP"))
+                            .foregroundColor(Color(.grayYP))
                     }
                 }
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
-            .background(Color("SearchCityYP"))
+            .background(Color(.searchCityYP))
             .cornerRadius(10)
             .padding(.horizontal, 16)
             .padding(.bottom, 8)
@@ -352,7 +357,7 @@ struct CityPickerView: View {
                 VStack {
                     Text("Город не найден")
                         .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(Color("BlackDayYP"))
+                        .foregroundColor(Color(.blackDayYP))
                         .multilineTextAlignment(.center)
                         .padding(.top, 180)
                 }
@@ -366,23 +371,23 @@ struct CityPickerView: View {
                             }) {
                                 HStack {
                                     Text(city.name)
-                                        .foregroundColor(Color("BlackDayYP"))
+                                        .foregroundColor(Color(.blackDayYP))
                                     Spacer()
                                     Image(systemName: "chevron.right")
                                         .font(.system(size: 20, weight: .semibold))
-                                        .foregroundColor(Color("BlackDayYP"))
+                                        .foregroundColor(Color(.blackDayYP))
                                 }
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 16)
                             }
-                            .background(Color("WhiteDayYP"))
+                            .background(Color(.whiteDayYP))
                         }
                     }
                 }
-                .background(Color("WhiteDayYP"))
+                .background(Color(.whiteDayYP))
             }
         }
-        .background(Color("WhiteDayYP"))
+        .background(Color(.whiteDayYP))
         .onAppear {
             viewModel.setErrorCallback {
                 showServerError = true
@@ -424,12 +429,12 @@ struct SearchPrimaryButton: View {
             HStack(spacing: 10) {
                 Text(title)
                     .font(.system(size: 17, weight: .bold))
-                    .foregroundColor(Color("WhiteYP"))
+                    .foregroundColor(Color(.whiteYP))
             }
             .padding(.vertical, 20)
             .padding(.horizontal, 8)
             .frame(width: 150)
-            .background(Color("BlueYP"))
+            .background(Color(.blueYP))
             .cornerRadius(16)
         }
     }
@@ -532,16 +537,16 @@ struct StationsPickerView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Color("WhiteDayYP").frame(height: 12).ignoresSafeArea(edges: .top)
+            Color(.whiteDayYP).frame(height: 12).ignoresSafeArea(edges: .top)
             ZStack {
                 Text("Выбор станции")
                     .font(.system(size: 17, weight: .bold))
-                    .foregroundColor(Color("BlackDayYP"))
+                    .foregroundColor(Color(.blackDayYP))
                 HStack {
                     Button(action: { onCancel() }) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(Color("BlackDayYP"))
+                            .foregroundColor(Color(.blackDayYP))
                     }
                     .padding(.leading, 16)
                     Spacer()
@@ -552,22 +557,22 @@ struct StationsPickerView: View {
             
             HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(Color("GrayYP"))
+                    .foregroundColor(Color(.grayYP))
                 TextField("Введите запрос", text: $viewModel.query)
                     .textInputAutocapitalization(.words)
                     .disableAutocorrection(true)
-                    .foregroundColor(Color("BlackDayYP"))
+                    .foregroundColor(Color(.blackDayYP))
                     .focused($searchFocused)
                 if searchFocused {
                     Button(action: { viewModel.query = "" }) {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(Color("GrayYP"))
+                            .foregroundColor(Color(.grayYP))
                     }
                 }
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
-            .background(Color("SearchCityYP"))
+            .background(Color(.searchCityYP))
             .cornerRadius(10)
             .padding(.horizontal, 16)
             .padding(.bottom, 8)
@@ -575,11 +580,11 @@ struct StationsPickerView: View {
             if viewModel.isLoading {
                 VStack {
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("BlueYP")))
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color(.blueYP)))
                         .scaleEffect(1.4)
                         .padding(.top, 120)
                     Text("Загрузка станций...")
-                        .foregroundColor(Color("GrayYP"))
+                        .foregroundColor(Color(.grayYP))
                         .padding(.top, 8)
                     Spacer()
                 }
@@ -592,23 +597,23 @@ struct StationsPickerView: View {
                             Button(action: { onSelect(station) }) {
                                 HStack {
                                     Text(station.title)
-                                        .foregroundColor(Color("BlackDayYP"))
+                                        .foregroundColor(Color(.blackDayYP))
                                     Spacer()
                                     Image(systemName: "chevron.right")
                                         .font(.system(size: 20, weight: .semibold))
-                                        .foregroundColor(Color("BlackDayYP"))
+                                        .foregroundColor(Color(.blackDayYP))
                                 }
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 16)
                             }
-                            .background(Color("WhiteDayYP"))
+                            .background(Color(.whiteDayYP))
                         }
                     }
                 }
-                .background(Color("WhiteDayYP"))
+                .background(Color(.whiteDayYP))
             }
         }
-        .background(Color("WhiteDayYP"))
+        .background(Color(.whiteDayYP))
         .onAppear {
             viewModel.setErrorCallback {
                 showServerError = true

@@ -10,7 +10,7 @@ import Network
 import SwiftUI
 import Combine
 
-class NetworkMonitor: ObservableObject {
+final class NetworkMonitor: ObservableObject {
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue(label: "NetworkMonitor")
     private var probeWorkItem: DispatchWorkItem?
@@ -20,7 +20,6 @@ class NetworkMonitor: ObservableObject {
     init() {
         monitor.pathUpdateHandler = { [weak self] path in
             DispatchQueue.main.async {
-                let wasConnected = self?.isConnected ?? true
                 let isNowConnected = path.status == .satisfied
                 self?.isConnected = isNowConnected
                 if isNowConnected == false {
@@ -52,7 +51,7 @@ class NetworkMonitor: ObservableObject {
                     if let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) {
                         self.isConnected = true
                         self.probeWorkItem = nil
-                    } else if let error = error {
+                    } else if error != nil {
                         if self.isConnected == false {
                             self.rescheduleProbe()
                         }

@@ -41,8 +41,11 @@ class CarriersViewModel: ObservableObject {
     private var onNoInternet: (() -> Void)?
     
     init() {
+        guard let serverURL = URL(string: "https://api.rasp.yandex.net") else {
+            fatalError("Некорректный URL сервера")
+        }
         let client = Client(
-            serverURL: URL(string: "https://api.rasp.yandex.net")!,
+            serverURL: serverURL,
             transport: URLSessionTransport()
         )
         self.searchService = SearchService(client: client)

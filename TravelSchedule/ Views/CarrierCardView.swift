@@ -20,18 +20,18 @@ struct CarrierCardView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 4))
                             .background(
                                 RoundedRectangle(cornerRadius: 4)
-                                    .fill(Color("LightGrayYP"))
+                                    .fill(Color(.lightGrayYP))
                             )
                         
                         Text(trip.carrier.title)
                             .font(.system(size: 17, weight: .semibold))
-                            .foregroundColor(Color("BlackYP"))
+                            .foregroundColor(Color(.blackYP))
                     }
                     
                     if let transferInfo = trip.transferInfo {
                         Text(transferInfo)
                             .font(.system(size: 12))
-                            .foregroundColor(Color("RedYP"))
+                            .foregroundColor(Color(.redYP))
                     }
                 }
                 
@@ -39,53 +39,52 @@ struct CarrierCardView: View {
                 
                 Text(trip.date)
                     .font(.system(size: 17, weight: .medium))
-                    .foregroundColor(Color("BlackYP"))
+                    .foregroundColor(Color(.blackYP))
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 20)
+            .padding([.top, .horizontal], 20)
             
             HStack {
                 Text(trip.departureTime)
                     .font(.system(size: 17, weight: .medium))
-                    .foregroundColor(Color("BlackYP"))
+                    .foregroundColor(Color(.blackYP))
                 
                 HStack {
                     Rectangle()
-                        .fill(Color("GrayYP"))
+                        .fill(Color(.grayYP))
                         .frame(height: 1)
                     
                     Text(trip.duration)
                         .font(.system(size: 12))
-                        .foregroundColor(Color("BlackYP"))
+                        .foregroundColor(Color(.blackYP))
                         .padding(.horizontal, 8)
                     
                     Rectangle()
-                        .fill(Color("GrayYP"))
+                        .fill(Color(.grayYP))
                         .frame(height: 1)
                 }
                 
                 Text(trip.arrivalTime)
                     .font(.system(size: 17, weight: .medium))
-                    .foregroundColor(Color("BlackYP"))
+                    .foregroundColor(Color(.blackYP))
                 
                 if let transferInfo = trip.transferInfo {
                     Text(transferInfo)
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(Color("RedYP"))
+                        .foregroundColor(Color(.redYP))
                         .padding(.top, 4)
                 }
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 20)
         }
-        .background(Color("LightGrayYP"))
+        .background(Color(.lightGrayYP))
         .cornerRadius(24)
         .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
 }
 
 #if canImport(SwiftUI)
-struct CarrierLogoView: View {
+private struct CarrierLogoView: View {
     let logoURLString: String?
     let title: String
     
@@ -116,16 +115,16 @@ struct CarrierLogoView: View {
     
     private var placeholder: some View {
         RoundedRectangle(cornerRadius: 4)
-            .fill(Color("LightGrayYP"))
+            .fill(Color(.lightGrayYP))
     }
     
     private var monogram: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 4)
-                .fill(Color("LightGrayYP"))
+                .fill(Color(.lightGrayYP))
             Text(initials(from: title))
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(Color("BlackYP"))
+                .foregroundColor(Color(.blackYP))
         }
     }
     
@@ -154,5 +153,5 @@ struct CarrierLogoView: View {
         sortDate: Date()
     ))
     .padding()
-    .background(Color("WhiteDayYP"))
+    .background(Color(.whiteDayYP))
 }

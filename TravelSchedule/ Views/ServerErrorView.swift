@@ -16,36 +16,36 @@ struct ServerErrorView: View {
             VStack(spacing: 20) {
                 Spacer()
                 
-                Image("ServerError")
+                Image(.serverError)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 223, height: 223)
                 
                 Text("Ошибка сервера")
                     .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(Color("BlackDayYP"))
+                    .foregroundColor(Color(.blackDayYP))
                     .multilineTextAlignment(.center)
                 
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color("WhiteDayYP"))
+            .background(Color(.whiteDayYP))
             
             VStack(spacing: 0) {
                 Divider()
-                    .background(Color("GrayYP"))
+                    .background(Color(.grayYP))
                 
                 HStack {
                     Button(action: {
                         onTabSelected(0)
                     }) {
                         VStack(spacing: 4) {
-                            Image("Schedule")
+                            Image(.schedule)
                                 .renderingMode(Image.TemplateRenderingMode.template)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(Color("BlackDayYP"))
+                                .foregroundColor(Color(.blackDayYP))
                         }
                     }
                     .frame(maxWidth: .infinity)
@@ -54,21 +54,21 @@ struct ServerErrorView: View {
                         onTabSelected(1)
                     }) {
                         VStack(spacing: 4) {
-                            Image("Settings")
+                            Image(.settings)
                                 .renderingMode(Image.TemplateRenderingMode.template)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(Color("GrayYP"))
+                                .foregroundColor(Color(.grayYP))
                         }
                     }
                     .frame(maxWidth: .infinity)
                 }
                 .padding(.vertical, 8)
-                .background(Color("WhiteDayYP"))
+                .background(Color(.whiteDayYP))
             }
         }
-        .background(Color("WhiteDayYP"))
+        .background(Color(.whiteDayYP))
     }
 }
 
