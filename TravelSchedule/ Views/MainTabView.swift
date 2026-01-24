@@ -15,6 +15,7 @@ struct MainTabView: View {
     @StateObject private var sessionManager = SessionManager()
     @State private var showNoInternetDebounce: DispatchWorkItem?
     @State private var hideNoInternetDebounce: DispatchWorkItem?
+    @AppStorage("isDarkModeEnabled") private var isDarkModeEnabled = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -120,6 +121,7 @@ struct MainTabView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: work)
             }
         }
+        .preferredColorScheme(isDarkModeEnabled ? .dark : .light)
     }
 }
 

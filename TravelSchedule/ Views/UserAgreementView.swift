@@ -72,6 +72,7 @@ struct UserAgreementView: View {
         .background(Color(.whiteDayYP))
         .navigationBarHidden(true)
         .toolbar(.hidden, for: .tabBar)
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
