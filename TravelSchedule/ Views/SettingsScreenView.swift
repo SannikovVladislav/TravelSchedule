@@ -13,9 +13,12 @@ struct SettingsScreenView: View {
             
             Spacer()
             
-            Text("Настройки")
-                .font(.system(size: 24, weight: .bold))
+            Text("Темная тема")
+                .font(.system(size: 17))
                 .foregroundColor(Color(.blackDayYP))
+            Toggle("", isOn: .constant(false))
+                .labelsHidden()
+                .tint(Color(.blueYP))
             
             Spacer()
             
