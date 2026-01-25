@@ -19,6 +19,9 @@ struct MainScreenView: View {
     @State private var pickerTarget: PickerTarget?
     @State private var showCarriers = false
     @State private var didPrefetchDirectory = false
+    @StateObject private var storiesViewModel = StoriesViewModel()
+    @State private var showStoriesPlayer = false
+    @State private var openedStoryIndex = 0
     
     var body: some View {
         ZStack {
@@ -26,15 +29,10 @@ struct MainScreenView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
-                        ForEach(0..<4) { index in
-                            StoryCardView(isActive: index < 2)
-                        }
+                    StoriesStripView(viewModel: storiesViewModel) { index in
+                        openedStoryIndex = index
+                        showStoriesPlayer = true
                     }
-                    .padding(.horizontal, 16)
-                }
-                .padding(.top, 12)
                 
                 ZStack(alignment: .trailing) {
                     RoundedRectangle(cornerRadius: 20)
@@ -235,7 +233,6 @@ private enum PickerTarget { case from, to }
     )
 }
 
-
 struct City: Identifiable, Equatable, Hashable {
     let id = UUID()
     let name: String
@@ -253,6 +250,7 @@ final class CityPickerViewModel: ObservableObject {
         City(name: "Казань"),
         City(name: "Омск")
     ]
+    
     private var onServerError: (() -> Void)?
     
     func setErrorCallback(onServerError: @escaping () -> Void) {
