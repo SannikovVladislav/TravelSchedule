@@ -131,6 +131,11 @@ struct MainScreenView: View {
                 .navigationBarHidden(true)
             }
         }
+        .fullScreenCover(isPresented: $showStoriesPlayer) {
+            StoriesPlayerView(viewModel: storiesViewModel, startIndex: openedStoryIndex) {
+                showStoriesPlayer = false
+            }
+        }
         .task {
             guard !didPrefetchDirectory else { return }
             didPrefetchDirectory = true

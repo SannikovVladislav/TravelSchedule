@@ -56,8 +56,8 @@ struct StoriesPlayerView: View {
                     .contentShape(Rectangle())
                     .onTapGesture { viewModel.advanceToNextStory() }
             }
-            .padding(.top, 140)
-            .ignoresSafeArea()
+                .padding(.top, 140)
+                .ignoresSafeArea()
         )
     }
     
@@ -69,10 +69,17 @@ struct StoriesPlayerView: View {
             Text(item.title)
                 .font(.system(size: 34, weight: .bold))
                 .foregroundColor(.white)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .lineLimit(2)
+            
             Text(item.description)
                 .font(.system(size: 20))
                 .lineLimit(3)
                 .foregroundColor(.white)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.init(top: 0, leading: 16, bottom: 40, trailing: 16))
     }

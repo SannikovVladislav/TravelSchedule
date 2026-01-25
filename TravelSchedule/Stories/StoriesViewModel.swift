@@ -33,11 +33,11 @@ final class StoriesViewModel: ObservableObject {
     
     init() {
         items = [
-            StoryItem(imageName: "story1", title: "Первая история", description: "Утренний поезд уносит нас навстречу новому дню, но я сеголдня не совершу ошибку как миллионы нетакусек"),
-            StoryItem(imageName: "story2", title: "Вторая история", description: "Брат запомни: лишь тот кто не хочет идти никуда, тот никуда не идет"),
-            StoryItem(imageName: "story3", title: "Третья история", description: "Паровозик из одного советского мультика который всё время сходил с рельс и нюхал не всегда был прав "),
-            StoryItem(imageName: "", title: "Четвертая история", description: "Тут тоже мог быть текст, но боже как мне лень"),
-            StoryItem(imageName: "", title: "Пятая история", description: "Зачем я это делаю, ради чего это всё происходит?"),
+            StoryItem(imageName: "story1", title: "Первая история", description: "Красивая девушка"),
+            StoryItem(imageName: "story2", title: "Вторая история", description: "Еще красивая девушка"),
+            StoryItem(imageName: "story3", title: "Третья история", description: "Компания приятных людей"),
+            StoryItem(imageName: "", title: "Четвертая история", description: "Обещаем Вам, что здесь что-нибудь появится, но позже"),
+            StoryItem(imageName: "", title: "Пятая история", description: "Обещаем Вам, что здесь что-нибудь появится, но позже"),
         ]
         loadViewedFromStorage()
         lastIndex = 0
@@ -49,8 +49,10 @@ final class StoriesViewModel: ObservableObject {
             queue: .main
         ) { [weak self] _ in
             guard let self else { return }
-            self.viewedIndices.removeAll()
-            self.saveViewedToStorage()
+            Task { @MainActor in
+                self.viewedIndices.removeAll()
+                self.saveViewedToStorage()
+            }
         }
     }
     
