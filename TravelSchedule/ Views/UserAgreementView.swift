@@ -11,7 +11,12 @@ struct UserAgreementView: View {
     @State private var isLoading = true
     @State private var didFail = false
     @State private var reloadId = UUID()
-    private let agreementURL = URL(string: "https://yandex.ru/legal/practicum_offer/ru/")!
+    private let agreementURL: URL
+    
+    init(onBack: @escaping () -> Void) {
+        self.onBack = onBack
+        self.agreementURL = URL(string: "https://yandex.ru/legal/practicum_offer/ru/")!
+    }
     
     var body: some View {
         VStack(spacing: 0) {

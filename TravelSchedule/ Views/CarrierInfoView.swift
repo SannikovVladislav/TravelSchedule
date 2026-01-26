@@ -12,8 +12,8 @@ struct CarrierInfoView: View {
     let carrier: CarrierInfo
     let onBack: () -> Void
     
-    @State private var email: String? = nil
-    @State private var phone: String? = nil
+    @State private var email: String?
+    @State private var phone: String?
     @State private var detailsLoaded = false
     
     private let apikey = Constants.apiKey
@@ -25,7 +25,7 @@ struct CarrierInfoView: View {
                 ZStack {
                     Text("Информация о перевозчике")
                         .font(.system(size: 17, weight: .bold))
-                        .foregroundColor(Color(.blackDayYP))
+                        .foregroundStyle(Color(.blackDayYP))
                         .multilineTextAlignment(.center)
                     HStack {
                         Button(action: onBack) {
@@ -50,44 +50,45 @@ struct CarrierInfoView: View {
                         .padding(.horizontal, 16)
                     Text(carrier.title)
                         .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(Color(.blackDayYP))
+                        .foregroundStyle(Color(.blackDayYP))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 16)
                     VStack(alignment: .leading, spacing: 6) {
                         Text("E-mail")
                             .font(.system(size: 17, weight: .regular))
-                            .foregroundColor(Color(.blackDayYP))
+                            .foregroundStyle(Color(.blackDayYP))
                         if let email = email, let url = URL(string: "mailto:\(email)") {
                             Link(email, destination: url)
                                 .font(.system(size: 15))
-                                .foregroundColor(Color(.blueYP))
+                                .foregroundStyle(Color(.blueYP))
                         } else {
                             Text("—")
                                 .font(.system(size: 15))
-                                .foregroundColor(Color(.grayYP))
+                                .foregroundStyle(Color(.grayYP))
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 16)
+                    
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Телефон")
                             .font(.system(size: 17, weight: .regular))
-                            .foregroundColor(Color(.blackDayYP))
+                            .foregroundStyle(Color(.blackDayYP))
                         if let phone = phone {
                             let tel = phone.filter { !$0.isWhitespace }
                             if let url = URL(string: "tel:\(tel)") {
                                 Link(phone, destination: url)
                                     .font(.system(size: 15))
-                                    .foregroundColor(Color(.blueYP))
+                                    .foregroundStyle(Color(.blueYP))
                             } else {
                                 Text(phone)
                                     .font(.system(size: 15))
-                                    .foregroundColor(Color(.grayYP))
+                                    .foregroundStyle(Color(.grayYP))
                             }
                         } else {
                             Text("—")
                                 .font(.system(size: 15))
-                                .foregroundColor(Color(.grayYP))
+                                .foregroundStyle(Color(.grayYP))
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -116,11 +117,15 @@ struct CarrierInfoView: View {
     private func loadCarrierDetails() async {
         guard !detailsLoaded, let code = carrier.code else { return }
         detailsLoaded = true
-        do {
-            let client = Client(
-                serverURL: URL(string: "https://api.rasp.yandex.net")!,
-                transport: URLSessionTransport()
-            )
+        guard let serverURL = URL(string: "https://api.rasp.yandex.net") else {
+                print("Invalid server URL")
+                return
+            }
+            do {
+                let client = Client(
+                    serverURL: serverURL,
+                    transport: URLSessionTransport()
+                )
             let service = CarrierService(client: client)
             let response = try await service.getCarrierInfo(
                 apikey: apikey,
@@ -144,8 +149,8 @@ struct CarrierInfoView: View {
     
     private func parseContacts(_ contacts: String?) -> (email: String?, phone: String?) {
         guard let contacts = contacts, !contacts.isEmpty else { return (nil, nil) }
-        var emailFound: String? = nil
-        var phoneFound: String? = nil
+        var emailFound: String?
+        var phoneFound: String?
         let lines = contacts.components(separatedBy: CharacterSet.newlines)
         for line in lines {
             let trimmed = line.trimmingCharacters(in: .whitespacesAndNewlines)

@@ -42,8 +42,7 @@ struct StoriesStripView: View {
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.leading)
                                 .lineLimit(2)
-                                .padding(.horizontal, 8)
-                                .padding(.bottom, 8)
+                                .padding([.horizontal, .bottom], 8)
                         }
                         .frame(width: 92, height: 140)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
