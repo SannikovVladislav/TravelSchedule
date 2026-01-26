@@ -26,6 +26,10 @@ struct CarrierInfo {
     let title: String
     let logo: String?
     let code: Int?
+    let email: String?
+    let phone: String?
+    let url: String?
+    let contacts: String?
 }
 
 @MainActor
@@ -260,7 +264,11 @@ class CarriersViewModel: ObservableObject {
         let carrierInfo = CarrierInfo(
             title: carrierTitle,
             logo: carrier.logo,
-            code: carrier.code
+            code: carrier.code,
+            email: carrier.email,
+            phone: carrier.phone,
+            url: carrier.url,
+            contacts: carrier.contacts
         )
         
         let date = formatDate(departure)
@@ -298,7 +306,11 @@ class CarriersViewModel: ObservableObject {
         let carrierInfo = CarrierInfo(
             title: carrierTitle,
             logo: carrier.logo,
-            code: carrier.code
+            code: carrier.code,
+            email: carrier.email,
+            phone: carrier.phone,
+            url: carrier.url,
+            contacts: carrier.contacts
         )
         
         let hasTransfers = intervalSegment.has_transfers ?? false

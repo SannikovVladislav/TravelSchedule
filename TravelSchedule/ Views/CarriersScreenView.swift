@@ -21,6 +21,7 @@ struct CarriersScreenView: View {
     @State private var currentFilters: FilterOptions?
     @State private var showCarrierInfo = false
     @State private var showServerError = false
+    @State private var selectedTrip: TripInfo?
     
     var body: some View {
         VStack(spacing: 0) {
@@ -169,7 +170,17 @@ struct CarriersScreenView: View {
             )
         }
         .navigationDestination(isPresented: $showCarrierInfo) {
-            CarrierInfoView(onBack: { showCarrierInfo = false })
+            if let trip = selectedTrip {
+                CarrierInfoView(
+                    carrier: trip.carrier,
+                    onBack: { showCarrierInfo = false }
+                )
+            } else {
+                CarrierInfoView(
+                    carrier: CarrierInfo(title: "", logo: nil, code: nil, email: nil, phone: nil, url: nil, contacts: nil),
+                    onBack: { showCarrierInfo = false }
+                )
+            }
         }
         .onAppear {
             viewModel.setErrorCallbacks(
