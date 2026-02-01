@@ -6,9 +6,10 @@
 //
 import SwiftUI
 
+
 struct SettingsScreenView: View {
     
-    @AppStorage("isDarkModeEnabled") private var isDarkModeEnabled = false
+    @StateObject private var viewModel = SettingsViewModel()
     @State private var showUserAgreement = false
     @AppStorage("storiesViewedIndices") private var storiesViewedIndices = ""
     
@@ -21,7 +22,7 @@ struct SettingsScreenView: View {
                         .font(.system(size: 17))
                         .foregroundColor(Color(.blackDayYP))
                     Spacer()
-                    Toggle("", isOn: $isDarkModeEnabled)
+                    Toggle("", isOn: $viewModel.isDarkModeEnabled)
                         .labelsHidden()
                         .tint(Color(.blueYP))
                 }
