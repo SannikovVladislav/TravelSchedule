@@ -8,7 +8,6 @@ import Foundation
 import SwiftUI
 import Combine
 
-// MARK: - Модель для фильтров
 struct FilterOptions {
     var timeSlots: Set<TimeSlot> = []
     var showTransfers: TransferOption?
@@ -44,7 +43,6 @@ class FilterViewModel: ObservableObject {
     }
     
     func applyFilters() {
-        // TODO: Применить фильтры к результатам
     }
 }
 
