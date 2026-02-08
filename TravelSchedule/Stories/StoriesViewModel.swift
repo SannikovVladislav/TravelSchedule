@@ -4,7 +4,7 @@
 //
 //  Created by Владислав on 25.01.2026.
 //
-import SwiftUI
+@preconcurrency import SwiftUI
 import Combine
 
 struct StoryItem: Identifiable, Equatable {

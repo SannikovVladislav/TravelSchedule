@@ -27,8 +27,7 @@ actor ApiClient {
         self.carrierService = CarrierService(client: client)
         self.allStationsService = AllStationsService(client: client)
     }
-
-    // MARK: - Search
+    
     func getSegments(
         apikey: String,
         from: String,
@@ -57,7 +56,6 @@ actor ApiClient {
         )
     }
 
-    // MARK: - Carrier
     func getCarrierInfo(
         apikey: String,
         code: String,
@@ -74,7 +72,6 @@ actor ApiClient {
         )
     }
 
-    // MARK: - Directory (stations list endpoints)
     func fetchAllCities(apikey: String) async throws -> [DirectoryCity] {
         let directory = DirectoryService(apikey: apikey)
         return try await directory.fetchAllCities()
@@ -85,7 +82,6 @@ actor ApiClient {
         return try await directory.fetchStations(inCityTitle: cityTitle)
     }
 
-    // MARK: - Raw all stations (HTML)
     func getAllStationsRawHTML(apikey: String, lang: String? = nil, format: String? = nil) async throws -> String {
         try await allStationsService.getAllStations(apikey: apikey, lang: lang, format: format)
     }
