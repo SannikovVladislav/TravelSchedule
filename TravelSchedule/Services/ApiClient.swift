@@ -19,7 +19,6 @@ final class ApiClient {
             return url
         }()
 
-
     private let client: Client
     private let searchService: SearchService
     private let carrierService: CarrierService

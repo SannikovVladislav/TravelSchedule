@@ -386,8 +386,8 @@ struct CityPickerView: View {
             }
             
             DispatchQueue.main.async { UIResponder.currentFirstResponderBecomesFirst(text: viewModel) }
-            Task { await viewModel.loadCities() }
         }
+        .task { await viewModel.loadCities() }
         .fullScreenCover(isPresented: $showServerError) {
             ServerErrorView(onTabSelected: onTabSelected ?? { _ in })
         }
