@@ -69,7 +69,7 @@ final class DirectoryService {
     private static var cachedCountries: [DirectoryCountry]?
     private static var loadingTask: Task<[DirectoryCountry], Error>?
     
-    init(apikey: String) {
+    nonisolated init(apikey: String) {
         self.apikey = apikey
     }
     

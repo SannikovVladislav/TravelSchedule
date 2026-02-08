@@ -8,9 +8,17 @@ import Foundation
 import OpenAPIRuntime
 import OpenAPIURLSession
 
-@globalActor
-actor ApiClient {
+@MainActor
+final class ApiClient {
     static let shared = ApiClient()
+    
+    private static let serverURL: URL = {
+            guard let url = URL(string: "https://api.rasp.yandex.net") else {
+                fatalError("Invalid server URL")
+            }
+            return url
+        }()
+
 
     private let client: Client
     private let searchService: SearchService
@@ -18,11 +26,10 @@ actor ApiClient {
     private let allStationsService: AllStationsService
 
     private init() {
-        let client = Client(
-            serverURL: URL(string: "https://api.rasp.yandex.net")!,
+        self.client = Client(
+            serverURL: Self.serverURL,
             transport: URLSessionTransport()
         )
-        self.client = client
         self.searchService = SearchService(client: client)
         self.carrierService = CarrierService(client: client)
         self.allStationsService = AllStationsService(client: client)
