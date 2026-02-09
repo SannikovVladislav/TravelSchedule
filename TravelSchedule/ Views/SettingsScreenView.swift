@@ -6,7 +6,6 @@
 //
 import SwiftUI
 
-
 struct SettingsScreenView: View {
     
     @StateObject private var viewModel = SettingsViewModel()

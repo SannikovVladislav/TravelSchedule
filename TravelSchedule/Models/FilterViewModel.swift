@@ -41,8 +41,5 @@ class FilterViewModel: ObservableObject {
             showTransfers: showTransfers
         )
     }
-    
-    func applyFilters() {
-    }
 }
 
