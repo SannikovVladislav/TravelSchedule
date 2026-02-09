@@ -16,7 +16,7 @@ final class MainViewModel: ObservableObject {
         onServerError: @escaping () -> Void,
         onNoInternet: @escaping () -> Void
     ) async {
-        guard didPrefetchDirectory == false else { return }
+        guard !didPrefetchDirectory else { return }
         didPrefetchDirectory = true
         do {
             _ = try await ApiClient.shared.fetchAllCities(apikey: apikey)

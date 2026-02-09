@@ -29,10 +29,10 @@ struct MainScreenView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                    StoriesStripView(viewModel: storiesViewModel) { index in
-                        openedStoryIndex = index
-                        showStoriesPlayer = true
-                    }
+                StoriesStripView(viewModel: storiesViewModel) { index in
+                    openedStoryIndex = index
+                    showStoriesPlayer = true
+                }
                 
                 ZStack(alignment: .trailing) {
                     RoundedRectangle(cornerRadius: 20)
@@ -136,7 +136,12 @@ struct MainScreenView: View {
                 showStoriesPlayer = false
             }
         }
-        .task { await mainViewModel.prefetchDirectory(apikey: Constants.apiKey, onServerError: onServerError, onNoInternet: onNoInternet) }
+        .task { await mainViewModel.prefetchDirectory(
+            apikey: Constants.apiKey,
+            onServerError: onServerError,
+            onNoInternet: onNoInternet
+        )
+        }
         .fullScreenCover(isPresented: $showCarriers) {
             NavigationStack {
                 if let fromCity = sessionManager.fromCity,
@@ -450,7 +455,7 @@ final class StationsPickerViewModel: ObservableObject {
     }
     
     func load(forCityTitle cityTitle: String) async {
-                
+        
         if currentCityTitle == cityTitle && !allStations.isEmpty {
             return
         }
@@ -480,8 +485,8 @@ final class StationsPickerViewModel: ObservableObject {
             let stations = try await directory.fetchStations(inCityTitle: cityTitle)
             let mapped = stations.map { Station(code: $0.yandexCode, title: $0.title) }
             
-                self.allStations = mapped
-                
+            self.allStations = mapped
+            
         } catch {
             if error.localizedDescription.contains("network") ||
                 error.localizedDescription.contains("internet") ||
