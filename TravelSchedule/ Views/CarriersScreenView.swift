@@ -191,9 +191,8 @@ struct CarriersScreenView: View {
                     onNoInternet?()
                 }
             )
-            
-            Task { await loadTrips() }
         }
+        .task { await loadTrips() }
         .navigationBarHidden(true)
         .toolbar(.hidden, for: .tabBar)
         .fullScreenCover(isPresented: $showServerError) {

@@ -39,7 +39,7 @@ class CarriersViewModel: ObservableObject {
     @Published var errorMessage: String?
     
     private let searchService: SearchService
-    private let apikey = "50889f83-e54c-4e2e-b9b9-7d5fe468a025"
+    private let apikey = Constants.apiKey
     private var currentFilters: FilterOptions?
     private var onServerError: (() -> Void)?
     private var onNoInternet: (() -> Void)?

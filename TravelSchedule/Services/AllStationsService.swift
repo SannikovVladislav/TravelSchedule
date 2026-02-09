@@ -19,7 +19,7 @@ protocol AllStationsServiceProtocol {
 final class AllStationsService: AllStationsServiceProtocol {
     private let client: Client
     
-    init(client: Client) {
+    nonisolated init(client: Client) {
         self.client = client
     }
     

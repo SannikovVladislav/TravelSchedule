@@ -18,7 +18,7 @@ struct MainScreenView: View {
     @State private var showCityPicker = false
     @State private var pickerTarget: PickerTarget?
     @State private var showCarriers = false
-    @State private var didPrefetchDirectory = false
+    @StateObject private var mainViewModel = MainViewModel()
     @StateObject private var storiesViewModel = StoriesViewModel()
     @State private var showStoriesPlayer = false
     @State private var openedStoryIndex = 0
@@ -136,19 +136,7 @@ struct MainScreenView: View {
                 showStoriesPlayer = false
             }
         }
-        .task {
-            guard !didPrefetchDirectory else { return }
-            didPrefetchDirectory = true
-            let directory = DirectoryService(apikey: Constants.apiKey)
-            do { _ = try await directory.fetchAllCities() }
-            catch {
-                if error.localizedDescription.contains("network") ||
-                    error.localizedDescription.contains("internet") ||
-                    error.localizedDescription.contains("offline") {
-                    onNoInternet()
-                } else { onServerError() }
-            }
-        }
+        .task { await mainViewModel.prefetchDirectory(apikey: Constants.apiKey, onServerError: onServerError, onNoInternet: onNoInternet) }
         .fullScreenCover(isPresented: $showCarriers) {
             NavigationStack {
                 if let fromCity = sessionManager.fromCity,
@@ -243,6 +231,7 @@ struct City: Identifiable, Equatable, Hashable {
     let name: String
 }
 
+@MainActor
 final class CityPickerViewModel: ObservableObject {
     @Published var query: String = ""
     @Published private(set) var allCities: [City] = []
@@ -397,8 +386,8 @@ struct CityPickerView: View {
             }
             
             DispatchQueue.main.async { UIResponder.currentFirstResponderBecomesFirst(text: viewModel) }
-            Task { await viewModel.loadCities() }
         }
+        .task { await viewModel.loadCities() }
         .fullScreenCover(isPresented: $showServerError) {
             ServerErrorView(onTabSelected: onTabSelected ?? { _ in })
         }
@@ -491,10 +480,8 @@ final class StationsPickerViewModel: ObservableObject {
             let stations = try await directory.fetchStations(inCityTitle: cityTitle)
             let mapped = stations.map { Station(code: $0.yandexCode, title: $0.title) }
             
-            await MainActor.run {
                 self.allStations = mapped
                 
-            }
         } catch {
             if error.localizedDescription.contains("network") ||
                 error.localizedDescription.contains("internet") ||
